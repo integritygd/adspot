@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AdSpot — The local marketplace for ad space</title>
+<meta name="description" content="Turn any wall, fence, lot, or screen into income. Put your business in front of your neighborhood. AdSpot connects space owners with local advertisers — and we handle the install." />
+<style>
+  :root{
+    --ink:#0e1525; --ink2:#3a455c; --muted:#6b7689;
+    --bg:#ffffff; --soft:#f5f7fb; --line:#e6eaf1;
+    --brand:#ff5a3c; --brand2:#ff8a3c; --accent:#1763ff;
+    --ok:#0f9d58;
+    --shadow:0 10px 30px rgba(16,30,60,.08);
+    --radius:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 22px}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3{line-height:1.12;letter-spacing:-.02em}
+  .btn{display:inline-block;font-weight:700;border-radius:999px;padding:14px 26px;cursor:pointer;border:0;font-size:16px;transition:transform .12s ease,box-shadow .2s ease}
+  .btn:hover{transform:translateY(-2px)}
+  .btn-primary{background:linear-gradient(120deg,var(--brand),var(--brand2));color:#fff;box-shadow:0 8px 22px rgba(255,90,60,.35)}
+  .btn-ghost{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
+  .btn-dark{background:var(--ink);color:#fff}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  nav .row{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .logo{font-weight:800;font-size:22px;letter-spacing:-.03em;display:flex;align-items:center;gap:8px}
+  .logo .dot{width:14px;height:14px;border-radius:50%;background:linear-gradient(120deg,var(--brand),var(--brand2));display:inline-block;box-shadow:0 0 0 4px rgba(255,90,60,.15)}
+  .navlinks{display:flex;gap:26px;align-items:center;font-weight:600;color:var(--ink2);font-size:15px}
+  .navlinks a:hover{color:var(--ink)}
+  @media(max-width:760px){.navlinks{display:none}}
+
+  /* HERO */
+  .hero{background:radial-gradient(1200px 500px at 80% -10%,#fff2ee 0,transparent 60%),var(--soft);padding:70px 0 50px}
+  .hero h1{font-size:clamp(34px,6vw,60px);max-width:760px}
+  .hero h1 .hl{background:linear-gradient(120deg,var(--brand),var(--brand2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p.sub{font-size:clamp(17px,2.4vw,21px);color:var(--ink2);max-width:600px;margin:20px 0 30px}
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap}
+  .trust{margin-top:26px;color:var(--muted);font-size:14px;display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+  .trust b{color:var(--ink)}
+
+  /* STATS */
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:48px}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+  .stat .n{font-size:30px;font-weight:800;letter-spacing:-.03em}
+  .stat .l{color:var(--muted);font-size:14px;margin-top:2px}
+  @media(max-width:680px){.stats{grid-template-columns:1fr}}
+
+  section{padding:64px 0}
+  .eyebrow{color:var(--brand);font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:13px}
+  .h2{font-size:clamp(26px,4vw,40px);margin:10px 0 12px}
+  .lead{color:var(--ink2);font-size:18px;max-width:640px}
+
+  /* TWO SIDED */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:34px}
+  @media(max-width:760px){.two{grid-template-columns:1fr}}
+  .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow)}
+  .card.dark{background:var(--ink);color:#fff;border-color:transparent}
+  .card h3{font-size:24px;margin-bottom:6px}
+  .card .tag{font-size:13px;font-weight:700;color:var(--brand);text-transform:uppercase;letter-spacing:.05em}
+  .card.dark .tag{color:var(--brand2)}
+  .steps{list-style:none;margin:18px 0 24px}
+  .steps li{display:flex;gap:12px;padding:9px 0;align-items:flex-start;font-size:15.5px}
+  .steps .num{flex:0 0 26px;height:26px;border-radius:50%;background:var(--soft);color:var(--ink);font-weight:800;display:grid;place-items:center;font-size:13px}
+  .card.dark .num{background:rgba(255,255,255,.14);color:#fff}
+
+  /* SPOTS */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
+  @media(max-width:860px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.grid{grid-template-columns:1fr}}
+  .spot{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:var(--shadow);transition:transform .15s ease}
+  .spot:hover{transform:translateY(-4px)}
+  .spot .pic{height:130px;display:grid;place-items:center;font-size:46px;background:var(--soft)}
+  .spot .body{padding:16px}
+  .spot .loc{font-weight:700}
+  .spot .meta{color:var(--muted);font-size:13.5px;margin:3px 0 10px}
+  .spot .price{font-weight:800;font-size:18px}
+  .spot .price span{font-weight:500;color:var(--muted);font-size:13px}
+  .pill{display:inline-block;font-size:12px;font-weight:700;color:var(--ok);background:#e9f7ef;border-radius:999px;padding:3px 10px;margin-bottom:8px}
+
+  /* EDGE */
+  .edge{background:var(--ink);color:#fff;border-radius:24px;padding:44px;display:grid;grid-template-columns:1.1fr 1fr;gap:30px;align-items:center}
+  @media(max-width:760px){.edge{grid-template-columns:1fr;padding:30px}}
+  .edge h2{font-size:clamp(24px,3.6vw,34px)}
+  .edge p{color:#c7cedd;margin-top:14px;font-size:16.5px}
+  .edge .feat{list-style:none;margin-top:18px}
+  .edge .feat li{padding:8px 0;display:flex;gap:10px;align-items:center;color:#eef1f7}
+  .edge .feat .ck{color:var(--brand2);font-weight:900}
+  .edge .badge{background:linear-gradient(120deg,var(--brand),var(--brand2));border-radius:18px;padding:28px;text-align:center}
+  .edge .badge .big{font-size:42px;font-weight:900;letter-spacing:-.03em}
+  .edge .badge .small{opacity:.95;margin-top:6px}
+
+  /* PRICING */
+  .price3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
+  @media(max-width:760px){.price3{grid-template-columns:1fr}}
+  .tier{border:1px solid var(--line);border-radius:var(--radius);padding:26px;background:#fff;box-shadow:var(--shadow)}
+  .tier.hot{border:2px solid var(--brand);position:relative}
+  .tier.hot::after{content:"Most popular";position:absolute;top:-12px;left:26px;background:var(--brand);color:#fff;font-size:12px;font-weight:700;padding:4px 12px;border-radius:999px}
+  .tier .price{font-size:34px;font-weight:800;margin:8px 0}
+  .tier .price span{font-size:15px;color:var(--muted);font-weight:500}
+  .tier ul{list-style:none;margin:16px 0 0}
+  .tier li{padding:7px 0;color:var(--ink2);font-size:15px}
+  .tier li::before{content:"✓ ";color:var(--ok);font-weight:800}
+
+  /* WAITLIST */
+  .cta-band{background:radial-gradient(900px 360px at 50% -40%,#fff2ee,transparent),var(--soft);border-radius:24px;padding:46px;text-align:center}
+  .form{display:flex;gap:10px;max-width:520px;margin:22px auto 0;flex-wrap:wrap;justify-content:center}
+  .form input,.form select{flex:1;min-width:180px;padding:14px 16px;border:1.5px solid var(--line);border-radius:12px;font-size:15px;font-family:inherit;background:#fff}
+  .form input:focus,.form select:focus{outline:none;border-color:var(--brand)}
+  #ok{display:none;margin-top:16px;color:var(--ok);font-weight:700}
+
+  footer{border-top:1px solid var(--line);padding:34px 0;color:var(--muted);font-size:14px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap row">
+    <div class="logo"><span class="dot"></span>AdSpot</div>
+    <div class="navlinks">
+      <a href="#how">How it works</a>
+      <a href="#spots">Browse spaces</a>
+      <a href="#edge">Why us</a>
+      <a href="#pricing">Pricing</a>
+      <a class="btn btn-dark" style="padding:10px 18px;font-size:14px" href="#join">Get early access</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <h1>Your neighborhood has <span class="hl">ad space</span> hiding in plain sight.</h1>
+    <p class="sub">AdSpot is the local marketplace that turns walls, fences, lots, and storefront screens into income for owners — and puts local businesses in front of the people down the street. <b>We even handle the install.</b></p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#join">List your space →</a>
+      <a class="btn btn-ghost" href="#spots">Find ad space</a>
+    </div>
+    <div class="trust">
+      <span>📍 Launching in the <b>Bay Area</b></span>
+      <span>🔧 Pro install crews included</span>
+      <span>💸 Owners earn <b>passive monthly income</b></span>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="n">$0 → $$$</div><div class="l">Idle wall or fence becomes monthly rent</div></div>
+      <div class="stat"><div class="n">100% local</div><div class="l">Reach customers within a few miles</div></div>
+      <div class="stat"><div class="n">We install</div><div class="l">Print, mount, screens & proof photos handled</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="wrap">
+    <div class="eyebrow">How it works</div>
+    <h2 class="h2">Two sides, one simple platform</h2>
+    <p class="lead">Whether you've got space to rent or a business to grow, AdSpot makes it a few taps — and our crews do the heavy lifting.</p>
+
+    <div class="two">
+      <div class="card">
+        <div class="tag">For space owners</div>
+        <h3>Earn money from space you already own</h3>
+        <ul class="steps">
+          <li><span class="num">1</span><span>List your wall, fence, lot, window, or screen — a few photos and an address.</span></li>
+          <li><span class="num">2</span><span>Set your price (or let us suggest one based on foot/road traffic).</span></li>
+          <li><span class="num">3</span><span>Approve advertisers you like. We install everything.</span></li>
+          <li><span class="num">4</span><span>Get paid automatically, every month.</span></li>
+        </ul>
+        <a class="btn btn-primary" href="#join">List your space</a>
+      </div>
+
+      <div class="card dark">
+        <div class="tag">For advertisers</div>
+        <h3>Own your neighborhood, not a billboard you can't afford</h3>
+        <ul class="steps">
+          <li><span class="num">1</span><span>Search real spaces near your customers on the map.</span></li>
+          <li><span class="num">2</span><span>Pick a spot, upload your design (or we'll make one).</span></li>
+          <li><span class="num">3</span><span>We print, mount, and send you a photo when it's live.</span></li>
+          <li><span class="num">4</span><span>Track it, swap creative, renew — all in one place.</span></li>
+        </ul>
+        <a class="btn btn-primary" href="#spots">Find ad space</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPOTS -->
+<section id="spots" style="background:var(--soft)">
+  <div class="wrap">
+    <div class="eyebrow">Live spaces</div>
+    <h2 class="h2">A peek at what's available</h2>
+    <p class="lead">Sample inventory — real listings coming as we launch neighborhood by neighborhood.</p>
+    <div class="grid">
+      <div class="spot"><div class="pic">🧱</div><div class="body"><span class="pill">High traffic</span><div class="loc">Brick wall · Hayward</div><div class="meta">Faces Mission Blvd · ~18k cars/day</div><div class="price">$650<span>/mo</span></div></div></div>
+      <div class="spot"><div class="pic">🚧</div><div class="body"><span class="pill">Corner lot</span><div class="loc">Fence frame · Castro Valley</div><div class="meta">Busy intersection · pedestrian + road</div><div class="price">$400<span>/mo</span></div></div></div>
+      <div class="spot"><div class="pic">📺</div><div class="body"><span class="pill">Digital</span><div class="loc">Café screen · San Leandro</div><div class="meta">Indoor screen · ~1,200 visitors/wk</div><div class="price">$250<span>/mo</span></div></div></div>
+      <div class="spot"><div class="pic">🏢</div><div class="body"><span class="pill">Building side</span><div class="loc">Wall wrap · Fremont</div><div class="meta">3-story side · freeway-visible</div><div class="price">$1,100<span>/mo</span></div></div></div>
+      <div class="spot"><div class="pic">🛻</div><div class="body"><span class="pill">Mobile</span><div class="loc">Box-truck side · roaming</div><div class="meta">Drives Bay Area routes daily</div><div class="price">$500<span>/mo</span></div></div></div>
+      <div class="spot"><div class="pic">🪟</div><div class="body"><span class="pill">Storefront</span><div class="loc">Window display · Union City</div><div class="meta">Main St foot traffic</div><div class="price">$300<span>/mo</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EDGE -->
+<section id="edge">
+  <div class="wrap">
+    <div class="edge">
+      <div>
+        <div class="eyebrow" style="color:var(--brand2)">Why AdSpot wins</div>
+        <h2>The others are just a website. We bring the truck.</h2>
+        <p>Every online ad-space marketplace stops at the booking — then leaves you scrambling to print, hang, and prove the ad went up. AdSpot is built by operators with real field crews, lifts, and ladders. We don't outsource the hard part — we own it.</p>
+        <ul class="feat">
+          <li><span class="ck">✓</span> In-house install & maintenance crews</li>
+          <li><span class="ck">✓</span> Print + mount + digital screens, end to end</li>
+          <li><span class="ck">✓</span> Photo proof every time an ad goes live</li>
+          <li><span class="ck">✓</span> Hyper-local: we know these streets</li>
+        </ul>
+      </div>
+      <div class="badge">
+        <div class="big">We install.</div>
+        <div class="small">From booking to "it's live" — handled. No ladders for you.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" style="background:var(--soft)">
+  <div class="wrap">
+    <div class="eyebrow">Pricing</div>
+    <h2 class="h2">Simple, aligned with you</h2>
+    <p class="lead">Owners list free. Advertisers pay for placements. AdSpot earns a cut only when a deal happens.</p>
+    <div class="price3">
+      <div class="tier">
+        <h3>Space owner</h3>
+        <div class="price">Free<span> to list</span></div>
+        <ul>
+          <li>List unlimited spaces</li>
+          <li>Suggested pricing from traffic data</li>
+          <li>Approve who advertises</li>
+          <li>Automatic monthly payouts</li>
+          <li>AdSpot keeps a 20% service fee</li>
+        </ul>
+      </div>
+      <div class="tier hot">
+        <h3>Advertiser — Local</h3>
+        <div class="price">from $250<span>/mo</span></div>
+        <ul>
+          <li>One placement near your customers</li>
+          <li>Pro install included</li>
+          <li>Photo proof + monthly report</li>
+          <li>Swap creative anytime</li>
+          <li>Design help available</li>
+        </ul>
+        <a class="btn btn-primary" style="margin-top:18px;width:100%;text-align:center" href="#join">Get early access</a>
+      </div>
+      <div class="tier">
+        <h3>Advertiser — Multi</h3>
+        <div class="price">Custom</div>
+        <ul>
+          <li>Multiple spaces / neighborhoods</li>
+          <li>Volume pricing</li>
+          <li>Campaign management</li>
+          <li>Dedicated rep</li>
+          <li>Priority install scheduling</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WAITLIST -->
+<section id="join">
+  <div class="wrap">
+    <div class="cta-band">
+      <div class="eyebrow">Get early access</div>
+      <h2 class="h2">Be first when AdSpot opens in your area</h2>
+      <p class="lead" style="margin:0 auto">Join the waitlist — we're onboarding the first spaces and advertisers now.</p>
+      <form class="form" onsubmit="return joinWaitlist(event)">
+        <input type="email" id="email" placeholder="you@email.com" required />
+        <select id="role" required>
+          <option value="">I'm a…</option>
+          <option value="owner">Space owner</option>
+          <option value="advertiser">Advertiser</option>
+          <option value="both">Both</option>
+        </select>
+        <button class="btn btn-primary" type="submit">Join waitlist</button>
+      </form>
+      <div id="ok">✓ You're on the list! We'll reach out as we launch your neighborhood.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex;justify-content:space-between;width:100%;flex-wrap:wrap;gap:12px">
+    <div class="logo" style="font-size:18px"><span class="dot"></span>AdSpot</div>
+    <div>© 2026 AdSpot · The local marketplace for ad space · Bay Area</div>
+  </div>
+</footer>
+
+<script>
+  function joinWaitlist(e){
+    e.preventDefault();
+    var email=document.getElementById('email').value.trim();
+    var role=document.getElementById('role').value;
+    if(!email||!role) return false;
+    // MVP: store locally so the demo "works" offline. Swap for a real form endpoint later.
+    var list=JSON.parse(localStorage.getItem('adspot_waitlist')||'[]');
+    list.push({email:email,role:role,at:new Date().toISOString()});
+    localStorage.setItem('adspot_waitlist',JSON.stringify(list));
+    document.querySelector('.form').style.display='none';
+    document.getElementById('ok').style.display='block';
+    console.log('Waitlist now has',list.length,'signups',list);
+    return false;
+  }
+</script>
+</body>
+</html>
